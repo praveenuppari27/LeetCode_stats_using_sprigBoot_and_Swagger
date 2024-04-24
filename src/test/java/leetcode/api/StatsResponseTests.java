@@ -11,13 +11,14 @@ import java.util.Map;
 
 @SpringBootTest
 public class StatsResponseTests {
-    final Map<String, Integer> submissionCalendar = new HashMap<>();
+	final Map<String, Float> languageProblemCount = new HashMap<>();
 
-    {
-        submissionCalendar.put("1610755200", 2);
-    }
-
-    StatsResponse s = new StatsResponse("success", "retrieved", 1, 2, 3, 4, 5, 6, 7, 8, (float) 99.99, 10, 11, 12, submissionCalendar);
+	{
+	    languageProblemCount.put("Java", 0.0f);
+	    languageProblemCount.put("MySQL", 0.0f);
+	    languageProblemCount.put("Python3", 0.0f);
+	}
+    StatsResponse s = new StatsResponse("success", "retrieved", 1, 2, 3, 4, 5, 6, 7, 8, (float) 99.99, 10, 11, 12, 13, 14, 15, 16, 17, 18, languageProblemCount);
 
     @Test
     void statusCorrect() {
@@ -88,20 +89,50 @@ public class StatsResponseTests {
     void reputationCorrect() {
         assertEquals(12, s.getReputation());
     }
+    
+    @Test
+    void totalRating() {
+        assertEquals(13, s.getRating());
+    }
+    
+    @Test
+    void alltotalContests() {
+        assertEquals(14, s.getTotalContests());
+    }
+    
+    @Test
+    void allParticipatedContests() {
+        assertEquals(15, s.getParticipatedContests());
+    }
+    
+    @Test
+    void totalHighestContestRanking() {
+        assertEquals(16, s.getHighestContestRanking());
+    }
+    
+    @Test
+    void totalStreak() {
+        assertEquals(17, s.getStreak());
+    }
+    
+    @Test
+    void allActiveDays() {
+        assertEquals(18, s.getTotalActiveDays());
+    }
+    
 
     @Test
     void sameRefEqualCorrect() {
         assertEquals(s, s);
     }
-
     @Test
-    void submissionCalendarCorrect() {
-        assertEquals(submissionCalendar, s.getSubmissionCalendar());
+    void languageProblemCountcorrect() {
+        assertEquals(languageProblemCount, s.getlanguageProblemCount());
     }
 
     @Test
     void sameValEqualCorrect() {
-        StatsResponse copy = new StatsResponse("success", "retrieved", 1, 2, 3, 4, 5, 6, 7, 8, (float) 99.99, 10, 11, 12, submissionCalendar);
+        StatsResponse copy = new StatsResponse("success", "retrieved", 1, 2, 3, 4, 5, 6, 7, 8, (float) 99.99, 10, 11, 12, 13, 14, 15, 16, 17, 18, languageProblemCount);
         assertTrue(s.equals(copy));
     }
 }

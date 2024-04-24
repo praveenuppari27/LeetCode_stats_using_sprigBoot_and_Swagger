@@ -1,6 +1,7 @@
 package leetcode.api.controller;
 
 import leetcode.api.model.StatsResponse;
+import leetcode.api.model.StatsResponse1;
 import leetcode.api.service.StatsService;
 import leetcode.api.service.StatsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,20 @@ public class UserController {
             return statsService.getStats(username.get());
         } else {
             String status = "error";
-            String msg = "please enter your username (ex: leetcode-stats-api.herokuapp.com/LeetCodeUsername)";
+            String msg = "please enter your username";
             return StatsResponse.error(status, msg);
+        }
+    }
+    
+    @GetMapping(value = "/contest/{username}")
+    public StatsResponse1 getStatsothers(@PathVariable Optional<String> username) {
+        if (username.isPresent()) {
+            StatsServiceImpl service = new StatsServiceImpl();
+            return statsService.getStatsothers(username.get());
+        } else {
+            String status = "error";
+            String msg = "please enter your username";
+            return StatsResponse1.error(status, msg);
         }
     }
 }
